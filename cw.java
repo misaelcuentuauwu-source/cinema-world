@@ -69,7 +69,7 @@ public class cw {
          *  - el texto "No suscrito" para indicar su estado
          * Los datos se guardan separados por comas para luego poder leerlos.
          */
-        writer.write(usuario + "," + contrasena + ",,," + "No suscrito");
+        writer.write(usuario + "," + contrasena + "," + "No suscrito");
         writer.newLine();
         System.out.println("✅ Usuario creado correctamente. Estado: No suscrito.");
     } catch (IOException e) {
