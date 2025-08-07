@@ -1,0 +1,14 @@
+# Ir a la carpeta donde está el proyecto
+cd /home/misael
+
+# Dar permiso de acceso a tu carpeta personal
+chmod o+x /home/misael
+
+# Dar permisos de lectura y ejecución al proyecto completo
+chmod -R a+rx /home/misael/cinema-world
+
+# Crear (si no existe) el archivo usuarios.txt
+touch /home/misael/cinema-world/usuarios.txt
+
+# Dar permisos de lectura y escritura a todos para el archivo de usuarios
+chmod a+rw /home/misael/cinema-world/usuarios.txt

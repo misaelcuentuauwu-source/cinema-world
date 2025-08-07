@@ -13,8 +13,8 @@ public class SeleccionarVideo {
         System.out.print("Selecciona 1 o 2: ");
         int opcion = sc.nextInt();
 
-        String rutaGato = "C:\\Users\\eduardo\\Downloads\\Download.mp4";
-        String rutaGato2 = "C:\\Users\\eduardo\\Downloads\\Download (1).mp4";
+        String rutaGato = "/home/misael/Vídeos/gato.mp4";
+        String rutaGato2 = "/home/misael/Vídeos/gato2.mp4";
 
         String rutaSeleccionada = null;
 
