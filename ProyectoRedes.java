@@ -3,7 +3,7 @@ public class ProyectoRedes {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String usuario = "eduardo";
-        String contrasena = "123456";
+        String contrasena = "2006";
         System.out.println("ingrese el usuario");
         String Ausuario = sc.nextLine();
         System.out.println("ingrese la contrasena");
