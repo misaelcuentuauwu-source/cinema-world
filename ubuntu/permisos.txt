@@ -12,3 +12,10 @@ touch /home/misael/cinema-world/usuarios.txt
 
 # Dar permisos de lectura y escritura a todos para el archivo de usuarios
 chmod a+rw /home/misael/cinema-world/usuarios.txt
+
+
+
+
+#compilar todos los class
+javac *.java
+
