@@ -19,3 +19,9 @@ chmod a+rw /home/misael/cinema-world/usuarios.txt
 #compilar todos los class
 javac *.java
 
+
+#instalar codecs necesarios
+
+sudo apt update
+sudo apt install ubuntu-restricted-extras
+
