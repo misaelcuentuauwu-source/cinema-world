@@ -9,18 +9,21 @@ public class suscripcion {
     static final String ARCHIVO_USUARIOS = "usuarios.txt";
     static java.util.Scanner sc = new java.util.Scanner(System.in);
 
-    public static void gestionarNuevaCuenta(String usuario, String contrasena) {
+    // Ahora devuelve String con el método de pago o "sinmetodo" si no se suscribe
+    public static String gestionarNuevaCuenta(String usuario, String contrasena) {
         System.out.print("¿Quieres suscribirte ahora? (s/n): ");
         String respuesta = sc.nextLine().trim().toLowerCase();
 
         if (respuesta.equals("s")) {
-            mostrarOpciones(usuario, contrasena);
+            return mostrarOpciones(usuario, contrasena);
         } else {
             System.out.println("Puedes suscribirte más tarde desde el menú.");
+            return "sinmetodo";
         }
     }
 
-    private static void mostrarOpciones(String usuario, String contrasena) {
+    // Devuelve resumen del método de pago si se suscribe, o "sinmetodo"
+    private static String mostrarOpciones(String usuario, String contrasena) {
         System.out.println("\n--- Opciones de Membresía ---");
         System.out.println("1. Membresía de 1 mes  - $299");
         System.out.println("2. Membresía de 3 meses - $699");
@@ -56,13 +59,14 @@ public class suscripcion {
                 break;
             default:
                 System.out.println("Opción no válida. No se activó ninguna suscripción.");
-                return;
+                return "sinmetodo";
         }
 
-        // Pedir datos de pago antes de confirmar
-        if (!procesarPago(precio)) {
+        // Pedir datos de pago y devolver resumen del método pago
+        String metodoPago = procesarPago(precio);
+        if (metodoPago == null) {
             System.out.println("❌ El pago no se completó. No se activó la suscripción.");
-            return;
+            return "sinmetodo";
         }
 
         // Calcular fechas
@@ -73,22 +77,36 @@ public class suscripcion {
         String fechaInicio = hoy.format(fmt);
         String fechaFin = fin.format(fmt);
 
-        actualizarSuscripcion(usuario, contrasena, fechaInicio, fechaFin, tipo);
+        actualizarSuscripcion(usuario, contrasena, fechaInicio, fechaFin, tipo, metodoPago);
         System.out.println("✅ " + tipo + " activada por $" + precio + ". Vigente hasta " + fechaFin);
+
+        return metodoPago;
     }
 
-    private static boolean procesarPago(double precio) {
+    // Devuelve resumen método pago o null si falló
+    private static String procesarPago(double precio) {
         System.out.println("\n💳 --- Pago de $" + precio + " ---");
         System.out.println("Seleccione método de pago:");
         System.out.println("1. Tarjeta de débito");
         System.out.println("2. Tarjeta de crédito");
         System.out.println("3. Tarjeta prepagada");
         System.out.print("Opción: ");
-        String metodoPago = sc.nextLine().trim();
+        String opcionPago = sc.nextLine().trim();
 
-        if (!metodoPago.matches("[1-3]")) {
-            System.out.println("Opción no válida. Cancelando pago...");
-            return false;
+        String tipoPago = null;
+        switch (opcionPago) {
+            case "1":
+                tipoPago = "Tarjeta de débito";
+                break;
+            case "2":
+                tipoPago = "Tarjeta de crédito";
+                break;
+            case "3":
+                tipoPago = "Tarjeta prepagada";
+                break;
+            default:
+                System.out.println("Opción no válida. Cancelando pago...");
+                return null;
         }
 
         System.out.println("\n--- Ingrese los datos de la tarjeta ---");
@@ -107,24 +125,27 @@ public class suscripcion {
         System.out.print("Código postal: ");
         String codigoPostal = sc.nextLine();
 
-        // Aquí podrías validar que los campos no estén vacíos
         if (nombreTitular.isEmpty() || numeroTarjeta.isEmpty() || fechaVencimiento.isEmpty() || cvv.isEmpty() || codigoPostal.isEmpty()) {
             System.out.println("❌ Datos incompletos. No se procesó el pago.");
-            return false;
+            return null;
         }
 
         System.out.println("✅ Pago procesado con éxito.");
-        return true;
+
+        // Devolvemos tipo de pago + titular para guardar
+        return tipoPago + " - Titular: " + nombreTitular;
     }
 
-    private static void actualizarSuscripcion(String usuario, String contrasena, String fechaInicio, String fechaFin, String tipo) {
+    private static void actualizarSuscripcion(String usuario, String contrasena, String fechaInicio, String fechaFin, String tipo, String metodoPago) {
         try {
             List<String> lineas = Files.readAllLines(Paths.get(ARCHIVO_USUARIOS));
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_USUARIOS))) {
                 for (String linea : lineas) {
-                    String[] datos = linea.split(",");
-                    if (datos[0].equals(usuario)) {
-                        bw.write(usuario + "," + contrasena + "," + fechaInicio + "," + fechaFin + "," + tipo);
+                    String[] datos = linea.split(";");
+                    if (datos.length > 0 && datos[0].equals(usuario)) {
+                        // Mantener puntos si existen, si no 0
+                        String puntos = (datos.length > 6) ? datos[6] : "0";
+                        bw.write(usuario + ";" + contrasena + ";" + fechaInicio + ";" + fechaFin + ";" + tipo + ";" + metodoPago + ";" + puntos);
                     } else {
                         bw.write(linea);
                     }
