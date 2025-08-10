@@ -148,35 +148,41 @@ public class cw {
         }
     }
 
-    static Usuario cargarUsuario(String usuarioBuscado, String contrasenaBuscado) {
-        try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                if (linea.trim().isEmpty()) continue;
-                String[] datos = linea.split(";");
-                if (datos.length < 2) continue;
+   static Usuario cargarUsuario(String usuarioBuscado, String contrasenaBuscado) {
+    try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            System.out.println("Leyendo línea: '" + linea + "'"); // DEBUG: muestra línea leída
 
-                if (datos[0].equals(usuarioBuscado) && datos[1].equals(contrasenaBuscado)) {
-                    Usuario u = new Usuario();
-                    u.usuario = datos[0];
-                    u.contrasena = datos[1];
-                    u.fechaInicio = datos.length > 2 ? datos[2] : "";
-                    u.fechaFin = datos.length > 3 ? datos[3] : "";
-                    u.tipoSuscripcion = datos.length > 4 ? datos[4] : "No suscrito";
-                    u.metodoPago = datos.length > 5 ? datos[5] : "sinmetodo";
-                    try {
-                        u.puntos = Integer.parseInt(datos.length > 6 ? datos[6] : "0");
-                    } catch (NumberFormatException e) {
-                        u.puntos = 0;
-                    }
-                    return u;
-                }
+            if (linea.trim().isEmpty()) continue; // Ignora líneas vacías
+
+            String[] datos = linea.split(";");
+            if (datos.length < 2) {
+                System.out.println("Línea ignorada por formato incorrecto (menos de 2 campos): " + linea);
+                continue; // Salta líneas con menos de 2 campos
             }
-        } catch (IOException e) {
-            System.out.println("Error leyendo archivo usuarios: " + e.getMessage());
+
+            if (datos[0].equals(usuarioBuscado) && datos[1].equals(contrasenaBuscado)) {
+                Usuario u = new Usuario();
+                u.usuario = datos[0];
+                u.contrasena = datos[1];
+                u.fechaInicio = datos.length > 2 ? datos[2] : "";
+                u.fechaFin = datos.length > 3 ? datos[3] : "";
+                u.tipoSuscripcion = datos.length > 4 ? datos[4] : "No suscrito";
+                u.metodoPago = datos.length > 5 ? datos[5] : "sinmetodo";
+                try {
+                    u.puntos = Integer.parseInt(datos.length > 6 ? datos[6] : "0");
+                } catch (NumberFormatException e) {
+                    u.puntos = 0;
+                }
+                return u;
+            }
         }
-        return null;
+    } catch (IOException e) {
+        System.out.println("Error leyendo archivo usuarios: " + e.getMessage());
     }
+    return null;
+}
 
     public static void actualizarUsuario(String usuario, String contrasena, String fechaInicio, String fechaFin,
                                          String tipoSuscripcion, String metodoPago, int puntos) {
