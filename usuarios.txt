@@ -1,0 +1,3 @@
+
+nusa;iru;2025-08-10;2025-09-10;Membresía 1 mes;Tarjeta de débito - Titular: pama;40
+monica;pepe;2025-08-10;2025-11-10;Membresía 3 meses;Tarjeta de crédito - Titular: pablo;0
