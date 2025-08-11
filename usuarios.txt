@@ -1,5 +1,4 @@
 
-nusa;iru;2025-08-10;2025-09-10;Membresía 1 mes;Tarjeta de débito - Titular: pama;18
+nusa;iru;2025-08-10;2025-09-10;Membresía 1 mes;Tarjeta de débito - Titular: pama;19
 monica;pepe;2025-08-10;2025-11-10;Membresía 3 meses;Tarjeta de crédito - Titular: pablo;0
 misa;ori;2025-08-10;2025-09-10;Membresía 1 mes;Tarjeta de débito - Titular: misael;0
-masha;ori;2025-08-11;2025-09-11;Membresía 1 mes;Tarjeta de débito - Titular: maumau;36

@@ -247,8 +247,8 @@ public class reproductorpeliculas {
         // URLs correspondientes a cada tráiler
         String[] urls = {
             "https://drive.google.com/file/d/10UUSQHiBZ48qA83VuoYPw-9AqfIaiKBn/view?usp=sharing",
-            "https://www.youtube.com/watch?v=trailerB",
-            "https://www.youtube.com/watch?v=trailerC"
+            "https://drive.google.com/file/d/1ldqyV_FGRbGWBAbKXGBijzWP4S4wHRFi/view?usp=sharing",
+            "https://drive.google.com/file/d/1nqL-DONvtBSoe7rRJVBJrfMwweeLkwIi/view?usp=sharing"
         };
         // Mostramos las opciones de trailers al usuario
         for (int i = 0; i < trailers.length; i++) {
