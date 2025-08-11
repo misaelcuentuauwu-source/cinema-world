@@ -279,8 +279,8 @@ public class reproductorpeliculas {
         // Array 2D con nombre y ruta del archivo
         String[][] trailers = {
             {"Thunderbolts", "cositas/clips/th.mp4"},
-            {"Trailer B", "cositas/clips/sp.mp4"},
-            {"Trailer C", "cositas/clips/mn.mp4"}
+            {"Spiderman No way home", "cositas/clips/sp.mp4"},
+            {"Minecraft la pelicula", "cositas/clips/mn.mp4"}
         };
 
         // Mostramos las opciones al usuario

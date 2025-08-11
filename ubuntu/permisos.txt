@@ -21,7 +21,9 @@ javac *.java
 
 
 #instalar codecs necesarios
-
 sudo apt update
 sudo apt install ubuntu-restricted-extras
 
+
+#Deshacer cambios
+git checkout -- permisos.txt usuarios.txt
